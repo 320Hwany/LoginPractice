@@ -1,6 +1,6 @@
-package loginpractice.cookie_session.filter.repository;
+package loginpractice.cookie_session.member.repository;
 
-import loginpractice.cookie_session.filter.domain.Member;
+import loginpractice.cookie_session.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

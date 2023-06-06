@@ -1,12 +1,12 @@
-package loginpractice.cookie_session.filter.application;
+package loginpractice.cookie_session.member.application;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import loginpractice.cookie_session.filter.dto.MemberLogin;
-import loginpractice.cookie_session.filter.repository.MemberRepository;
-import loginpractice.cookie_session.filter.domain.MemberSession;
-import loginpractice.cookie_session.filter.dto.MemberSignup;
-import loginpractice.cookie_session.filter.domain.Member;
+import loginpractice.cookie_session.member.domain.MemberSession;
+import loginpractice.cookie_session.member.dto.MemberLogin;
+import loginpractice.cookie_session.member.repository.MemberRepository;
+import loginpractice.cookie_session.member.dto.MemberSignup;
+import loginpractice.cookie_session.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class MemberService {
 

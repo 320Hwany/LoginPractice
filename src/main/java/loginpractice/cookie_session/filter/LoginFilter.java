@@ -1,9 +1,9 @@
-package loginpractice.cookie_session.filter.config;
+package loginpractice.cookie_session.filter;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import loginpractice.cookie_session.filter.domain.MemberSession;
+import loginpractice.cookie_session.member.domain.MemberSession;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;

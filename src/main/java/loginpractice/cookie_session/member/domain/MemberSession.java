@@ -1,4 +1,4 @@
-package loginpractice.cookie_session.filter.domain;
+package loginpractice.cookie_session.member.domain;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

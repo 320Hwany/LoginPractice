@@ -1,6 +1,6 @@
-package loginpractice.cookie_session.filter.dto;
+package loginpractice.cookie_session.member.dto;
 
-import loginpractice.cookie_session.filter.domain.Member;
+import loginpractice.cookie_session.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

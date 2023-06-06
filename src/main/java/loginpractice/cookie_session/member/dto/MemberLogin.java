@@ -1,4 +1,4 @@
-package loginpractice.cookie_session.filter.dto;
+package loginpractice.cookie_session.member.dto;
 
 import lombok.AccessLevel;
 import lombok.Getter;

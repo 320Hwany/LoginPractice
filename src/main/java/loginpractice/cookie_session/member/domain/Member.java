@@ -1,4 +1,4 @@
-package loginpractice.cookie_session.filter.domain;
+package loginpractice.cookie_session.member.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

@@ -1,29 +1,25 @@
 package loginpractice.cookie_session.filter.presentation;
 
 import jakarta.servlet.http.HttpServletRequest;
-import loginpractice.cookie_session.filter.domain.Member;
-import loginpractice.cookie_session.filter.dto.MemberLogin;
-import loginpractice.cookie_session.filter.application.MemberService;
-import loginpractice.cookie_session.filter.dto.MemberResponse;
-import loginpractice.cookie_session.filter.dto.MemberSignup;
+import loginpractice.cookie_session.member.application.MemberService;
+import loginpractice.cookie_session.member.dto.MemberResponse;
+import loginpractice.cookie_session.member.domain.Member;
+import loginpractice.cookie_session.member.dto.MemberLogin;
+import loginpractice.cookie_session.member.dto.MemberSignup;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import static loginpractice.cookie_session.filter.dto.MemberResponse.*;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
+@RequestMapping("/filter")
 @RestController
-public class MemberController {
+public class FilterMemberController {
 
     private final MemberService memberService;
 
     @GetMapping("/member")
     public MemberResponse get(HttpServletRequest request) {
         Member member = memberService.get(request);
-        return toMemberResponse(member);
+        return MemberResponse.toMemberResponse(member);
     }
 
     @PostMapping("/signup")
