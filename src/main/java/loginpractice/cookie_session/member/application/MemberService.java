@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import static loginpractice.cookie_session.member.domain.MemberSession.*;
+
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -30,7 +32,7 @@ public class MemberService {
         if (optionalMember.isPresent()) {
             Member member = optionalMember.get();
             if (memberLogin.getPassword().equals(member.getPassword())) {
-                MemberSession memberSession = MemberSession.toMemberSession(member);
+                MemberSession memberSession = toMemberSession(member);
                 memberSession.makeSession(request);
             }
         }
@@ -44,5 +46,12 @@ public class MemberService {
             return optionalMember.get();
         }
         throw new IllegalArgumentException("회원이 존재하지 않습니다");
+    }
+
+    public void logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
     }
 }

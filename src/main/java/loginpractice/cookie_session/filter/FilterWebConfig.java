@@ -12,7 +12,7 @@ public class FilterWebConfig {
         FilterRegistrationBean<LoginFilter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(new LoginFilter());
         filterRegistrationBean.setOrder(1);
-        filterRegistrationBean.addUrlPatterns("/filter/member");
+        filterRegistrationBean.addUrlPatterns("/filter/member", "/filter/logout");
 
         return filterRegistrationBean;
     }

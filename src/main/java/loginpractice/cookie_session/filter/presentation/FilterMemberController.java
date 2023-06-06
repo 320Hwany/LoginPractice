@@ -32,4 +32,9 @@ public class FilterMemberController {
                       HttpServletRequest request) {
         memberService.login(memberLogin, request);
     }
+
+    @PostMapping("/logout")
+    public void logout(HttpServletRequest request) {
+        memberService.logout(request);
+    }
 }
