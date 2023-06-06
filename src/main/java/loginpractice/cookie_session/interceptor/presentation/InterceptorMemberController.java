@@ -9,6 +9,8 @@ import loginpractice.cookie_session.member.dto.MemberSignup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import static loginpractice.cookie_session.member.dto.MemberResponse.*;
+
 @RequiredArgsConstructor
 @RequestMapping("/interceptor")
 @RestController
@@ -18,8 +20,8 @@ public class InterceptorMemberController {
 
     @GetMapping("/member")
     public MemberResponse get(HttpServletRequest request) {
-        Member member = memberService.get(request);
-        return MemberResponse.toMemberResponse(member);
+        Member member = memberService.getMemberByRequest(request);
+        return toMemberResponse(member);
     }
 
     @PostMapping("/signup")

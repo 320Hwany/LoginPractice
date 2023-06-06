@@ -38,9 +38,17 @@ public class MemberService {
         }
     }
 
-    public Member get(HttpServletRequest request) {
+    public Member getMemberByRequest(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         MemberSession memberSession = (MemberSession) session.getAttribute("MemberSession");
+        Optional<Member> optionalMember = memberRepository.findById(memberSession.getId());
+        if (optionalMember.isPresent()) {
+            return optionalMember.get();
+        }
+        throw new IllegalArgumentException("회원이 존재하지 않습니다");
+    }
+
+    public Member getByMemberSession(MemberSession memberSession) {
         Optional<Member> optionalMember = memberRepository.findById(memberSession.getId());
         if (optionalMember.isPresent()) {
             return optionalMember.get();
