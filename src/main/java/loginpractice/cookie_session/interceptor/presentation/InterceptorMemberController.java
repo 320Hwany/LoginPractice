@@ -9,7 +9,7 @@ import loginpractice.cookie_session.member.dto.MemberSignup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import static loginpractice.cookie_session.member.dto.MemberResponse.*;
+import static loginpractice.cookie_session.member.dto.MemberResponse.toMemberResponse;
 
 @RequiredArgsConstructor
 @RequestMapping("/interceptor")

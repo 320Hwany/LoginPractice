@@ -13,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static loginpractice.cookie_session.member.domain.MemberSession.*;
-
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -32,7 +30,7 @@ public class MemberService {
         if (optionalMember.isPresent()) {
             Member member = optionalMember.get();
             if (memberLogin.getPassword().equals(member.getPassword())) {
-                MemberSession memberSession = toMemberSession(member);
+                MemberSession memberSession = MemberSession.toMemberSession(member);
                 memberSession.makeSession(request);
             }
         }
