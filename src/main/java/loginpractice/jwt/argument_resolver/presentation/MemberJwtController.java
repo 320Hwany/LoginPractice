@@ -3,7 +3,6 @@ package loginpractice.jwt.argument_resolver.presentation;
 import jakarta.servlet.http.HttpServletResponse;
 import loginpractice.jwt.argument_resolver.annotation.JwtLogin;
 import loginpractice.jwt.member_jwt.application.MemberJwtService;
-import loginpractice.jwt.member_jwt.domain.MemberJwt;
 import loginpractice.jwt.member_jwt.domain.MemberJwtSession;
 import loginpractice.jwt.member_jwt.dto.MemberJwtLogin;
 import loginpractice.jwt.member_jwt.dto.MemberJwtSignup;

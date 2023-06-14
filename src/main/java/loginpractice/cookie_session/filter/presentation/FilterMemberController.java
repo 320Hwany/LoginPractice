@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import static loginpractice.cookie_session.member.dto.MemberResponse.toMemberResponse;
 
 @RequiredArgsConstructor
-@RequestMapping("/filter")
+@RequestMapping("/cookie-session/filter")
 @RestController
 public class FilterMemberController {
 

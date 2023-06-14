@@ -14,7 +14,7 @@ public class InterceptorWebConfig implements WebMvcConfigurer {
         log.info("addInterceptors");
         registry.addInterceptor(new LoginInterceptor())
                 .order(1)
-                .addPathPatterns("/interceptor/**")
-                .excludePathPatterns("/interceptor/signup", "/interceptor/login");
+                .addPathPatterns("/cookie-session/interceptor/**")
+                .excludePathPatterns("/cookie-session/interceptor/signup", "/interceptor/login");
     }
 }

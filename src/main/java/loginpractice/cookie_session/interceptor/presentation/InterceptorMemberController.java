@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import static loginpractice.cookie_session.member.dto.MemberResponse.toMemberResponse;
 
 @RequiredArgsConstructor
-@RequestMapping("/interceptor")
+@RequestMapping("/cookie-session/interceptor")
 @RestController
 public class InterceptorMemberController {
 

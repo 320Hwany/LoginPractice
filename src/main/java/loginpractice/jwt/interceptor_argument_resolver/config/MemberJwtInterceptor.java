@@ -1,4 +1,4 @@
-package loginpractice.jwt.argument_resolver.config;
+package loginpractice.jwt.interceptor_argument_resolver.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -6,45 +6,39 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import loginpractice.jwt.argument_resolver.annotation.JwtLogin;
+import jakarta.servlet.http.HttpServletResponse;
 import loginpractice.jwt.member_jwt.domain.MemberJwt;
 import loginpractice.jwt.member_jwt.domain.MemberJwtSession;
 import loginpractice.jwt.member_jwt.repository.MemberJwtRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.MethodParameter;
-import org.springframework.web.bind.support.WebDataBinderFactory;
-import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.method.support.ModelAndViewContainer;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.Base64;
 import java.util.Optional;
 
 import static loginpractice.jwt.member_jwt.JwtKey.JWT_KEY;
-import static loginpractice.jwt.member_jwt.domain.MemberJwtSession.*;
+import static loginpractice.jwt.member_jwt.domain.MemberJwtSession.toMemberJwtSession;
 
+@Slf4j
 @RequiredArgsConstructor
-public class MemberJwtArgumentResolver implements HandlerMethodArgumentResolver {
+public class MemberJwtInterceptor implements HandlerInterceptor {
 
     private final MemberJwtRepository memberJwtRepository;
 
     @Override
-    public boolean supportsParameter(MethodParameter parameter) {
-        boolean isMemberJwtSessionType = parameter.getParameterType().equals(MemberJwtSession.class);
-        boolean isJwtLoginAnnotation = parameter.hasParameterAnnotation(JwtLogin.class);
-        return isMemberJwtSessionType && isJwtLoginAnnotation;
-    }
-
-    @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory)
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        String accessJws = webRequest.getHeader("Access_token");
+
+        log.info("preHandle start");
+        String accessToken = request.getHeader("Access_token");
         byte[] decodedKey = Base64.getDecoder().decode(JWT_KEY);
-        return getMemberSessionFromAccessJws(accessJws, decodedKey, webRequest);
+        MemberJwtSession memberJwtSession = getMemberSessionFromAccessJws(accessToken, decodedKey, request);
+        request.setAttribute("MemberJwtSession", memberJwtSession);
+        return true;
     }
 
-    private MemberJwtSession getMemberSessionFromAccessJws(String jws, byte[] decodedKey, NativeWebRequest webRequest) {
+    private MemberJwtSession getMemberSessionFromAccessJws(String jws, byte[] decodedKey, HttpServletRequest request) {
         try {
             Jws<Claims> claims = getClaims(jws, decodedKey);
             String memberId = claims.getBody().getSubject();
@@ -55,7 +49,6 @@ public class MemberJwtArgumentResolver implements HandlerMethodArgumentResolver 
             }
             throw new JwtException("AccessToken이 존재하지 않습니다");
         } catch (JwtException e) {
-            HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
             Cookie[] cookies = getCookies(request);
             String refreshJws = getRefreshJws(cookies);
             return getMemberSessionFromRefreshJws(refreshJws, decodedKey);
